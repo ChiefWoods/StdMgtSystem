@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StdMgtSystemBeforeRefactoring {
-    public static void sortList(ArrayList<String> list) {
+    public static void sortSubjectList(ArrayList<Subject> list) {
         boolean isListSorted = false;
         while (!isListSorted) {
             isListSorted = true;
-            String temp = null;
+            Subject temp = null;
             for (int i = 0; i < list.size() - 1; i++) {
-                if ((list.get(i)).compareToIgnoreCase(list.get(i + 1)) > 0) {
+                if (list.get(i).getName().compareToIgnoreCase(list.get(i + 1).getName()) > 0) {
                     temp = list.get(i);
                     list.set(i, list.get(i + 1));
                     list.set(i + 1, temp);
@@ -20,19 +20,44 @@ public class StdMgtSystemBeforeRefactoring {
         }
     }
 
-    public static boolean searchElement(ArrayList<String> list, String element) {
-        boolean isElementFound = false;
-        for (int index = 0; index < list.size(); index++) {
-            if (list.get(index).equals(element))
-                isElementFound = true;
+    public static void sortStudentList(ArrayList<Student> list) {
+        boolean isListSorted = false;
+        while (!isListSorted) {
+            isListSorted = true;
+            Student temp = null;
+            for (int i = 0; i < list.size() - 1; i++) {
+                if (list.get(i).getName().compareToIgnoreCase(list.get(i + 1).getName()) > 0) {
+                    temp = list.get(i);
+                    list.set(i, list.get(i + 1));
+                    list.set(i + 1, temp);
+                    isListSorted = false;
+                }
+            }
         }
-        return isElementFound;
+    }
+
+    public static boolean searchSubject(ArrayList<Subject> list, String name) {
+        boolean isSubjectFound = false;
+        for (int index = 0; index < list.size(); index++) {
+            if (list.get(index).getName().equals(name))
+                isSubjectFound = true;
+        }
+        return isSubjectFound;
+    }
+
+    public static boolean searchStudent(ArrayList<Student> list, String name) {
+        boolean isStudentFound = false;
+        for (int index = 0; index < list.size(); index++) {
+            if (list.get(index).getName().equals(name))
+                isStudentFound = true;
+        }
+        return isStudentFound;
     }
 
     public static void main(String[] args) {
 
         // This code is to add subjects to the student management system and sort them:
-        ArrayList<String> subjectList = new ArrayList<String>(); // an array list of subjects
+        ArrayList<Subject> subjectList = new ArrayList<Subject>(); // an array list of subjects
         String newSubjectName; // A variable to add a new subject name
         String subjectToSearch = null;
         String studentToSearch = null;
@@ -43,44 +68,44 @@ public class StdMgtSystemBeforeRefactoring {
         Scanner input = new Scanner(System.in);
         newSubjectName = input.next();
         while (!(newSubjectName.equals("end"))) {
-            subjectList.add(newSubjectName);
+            subjectList.add(new Subject(newSubjectName));
             System.out.print("Enter a subject name to be added to the student management system");
             newSubjectName = input.next();
         }
         System.out.println("The subject names in the student management system before sorting are: ");
-        for (String counter : subjectList) {
-            System.out.println(counter);
+        for (Subject subject : subjectList) {
+            System.out.println(subject.getName());
         }
         // bubble sort--------------------------------------------------
-        sortList(subjectList);
+        sortSubjectList(subjectList);
         // -------------------------------------------------------
         System.out.println("The subject names in the student management system after sorting are: ");
-        for (String counter : subjectList) {
-            System.out.println(counter);
+        for (Subject subject : subjectList) {
+            System.out.println(subject.getName());
         }
         // This code is to add student names to the student management system and sort
         // them
-        ArrayList<String> studentList = new ArrayList<String>();// an array list of student names
+        ArrayList<Student> studentList = new ArrayList<Student>();// an array list of student names
         String newStudentName;// A variable to add a new student name
         System.out.println("Create the student name list by entering the student names one by one");
         System.out.println("Enter a student name to be added to the student management system");
         input = new Scanner(System.in);
         newStudentName = input.next();
         while (!(newStudentName.equals("end"))) {
-            studentList.add(newStudentName);
+            studentList.add(new Student(newStudentName));
             System.out.print("Enter a student name to be added to the student management system");
             newStudentName = input.next();
         }
         System.out.println("The student names in the student management system before sorting are: ");
-        for (String counter : studentList) {
-            System.out.println(counter);
+        for (Student student : studentList) {
+            System.out.println(student.getName());
         }
         // bubble sort--------------------------------------------------
-        sortList(studentList);
+        sortStudentList(studentList);
         // -------------------------------------------------------
         System.out.println("The student names in the student management system after sorting are: ");
-        for (String counter : studentList) {
-            System.out.println(counter);
+        for (Student student : studentList) {
+            System.out.println(student.getName());
         }
 
         // This code is to search for a specific subject name
@@ -88,7 +113,7 @@ public class StdMgtSystemBeforeRefactoring {
         subjectToSearch = input.next();
 
         // Linear Search----------------------------------------------
-        isSubjectFound = searchElement(subjectList, subjectToSearch);
+        isSubjectFound = searchSubject(subjectList, subjectToSearch);
         // ------------------------------------------------------------
         if (isSubjectFound == true)
             System.out.println("The subject name is found");
@@ -101,7 +126,7 @@ public class StdMgtSystemBeforeRefactoring {
         studentToSearch = input.next();
 
         // Linear Search----------------------------------------------
-        isStudentFound = searchElement(studentList, studentToSearch);
+        isStudentFound = searchStudent(studentList, studentToSearch);
         // ------------------------------------------------------------
         if (isStudentFound == true)
             System.out.println("The student name is found");
