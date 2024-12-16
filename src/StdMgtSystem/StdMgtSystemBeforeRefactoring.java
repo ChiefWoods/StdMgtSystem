@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StdMgtSystemBeforeRefactoring {
-    public static void sortSubjectList(ArrayList<Subject> list) {
+    public static <T> void sortList(ArrayList<T> list) {
         boolean isListSorted = false;
         while (!isListSorted) {
             isListSorted = true;
-            Subject temp = null;
+            T temp = null;
             for (int i = 0; i < list.size() - 1; i++) {
-                if (list.get(i).getName().compareToIgnoreCase(list.get(i + 1).getName()) > 0) {
+                if (list.get(i).toString().compareToIgnoreCase(list.get(i + 1).toString()) > 0) {
                     temp = list.get(i);
                     list.set(i, list.get(i + 1));
                     list.set(i + 1, temp);
@@ -20,38 +20,13 @@ public class StdMgtSystemBeforeRefactoring {
         }
     }
 
-    public static void sortStudentList(ArrayList<Student> list) {
-        boolean isListSorted = false;
-        while (!isListSorted) {
-            isListSorted = true;
-            Student temp = null;
-            for (int i = 0; i < list.size() - 1; i++) {
-                if (list.get(i).getName().compareToIgnoreCase(list.get(i + 1).getName()) > 0) {
-                    temp = list.get(i);
-                    list.set(i, list.get(i + 1));
-                    list.set(i + 1, temp);
-                    isListSorted = false;
-                }
-            }
-        }
-    }
-
-    public static boolean searchSubject(ArrayList<Subject> list, String name) {
-        boolean isSubjectFound = false;
+    public static <T> boolean searchElement(ArrayList<T> list, String name) {
+        boolean isElementFound = false;
         for (int index = 0; index < list.size(); index++) {
-            if (list.get(index).getName().equals(name))
-                isSubjectFound = true;
+            if (list.get(index).toString().equals(name))
+                isElementFound = true;
         }
-        return isSubjectFound;
-    }
-
-    public static boolean searchStudent(ArrayList<Student> list, String name) {
-        boolean isStudentFound = false;
-        for (int index = 0; index < list.size(); index++) {
-            if (list.get(index).getName().equals(name))
-                isStudentFound = true;
-        }
-        return isStudentFound;
+        return isElementFound;
     }
 
     public static void main(String[] args) {
@@ -77,7 +52,7 @@ public class StdMgtSystemBeforeRefactoring {
             System.out.println(subject.getName());
         }
         // bubble sort--------------------------------------------------
-        sortSubjectList(subjectList);
+        sortList(subjectList);
         // -------------------------------------------------------
         System.out.println("The subject names in the student management system after sorting are: ");
         for (Subject subject : subjectList) {
@@ -101,7 +76,7 @@ public class StdMgtSystemBeforeRefactoring {
             System.out.println(student.getName());
         }
         // bubble sort--------------------------------------------------
-        sortStudentList(studentList);
+        sortList(studentList);
         // -------------------------------------------------------
         System.out.println("The student names in the student management system after sorting are: ");
         for (Student student : studentList) {
@@ -113,7 +88,7 @@ public class StdMgtSystemBeforeRefactoring {
         subjectToSearch = input.next();
 
         // Linear Search----------------------------------------------
-        isSubjectFound = searchSubject(subjectList, subjectToSearch);
+        isSubjectFound = searchElement(subjectList, subjectToSearch);
         // ------------------------------------------------------------
         if (isSubjectFound == true)
             System.out.println("The subject name is found");
@@ -126,7 +101,7 @@ public class StdMgtSystemBeforeRefactoring {
         studentToSearch = input.next();
 
         // Linear Search----------------------------------------------
-        isStudentFound = searchStudent(studentList, studentToSearch);
+        isStudentFound = searchElement(studentList, studentToSearch);
         // ------------------------------------------------------------
         if (isStudentFound == true)
             System.out.println("The student name is found");
