@@ -19,7 +19,7 @@ public class StdMgtSystemBeforeRefactoring {
         newSubjectName = input.next();
         while (!(newSubjectName.equals("end"))) {
             subjectList.add(new Subject(newSubjectName));
-            System.out.print("Enter a subject name to be added to the student management system");
+            System.out.println("Enter a subject name to be added to the student management system (enter 'end' to stop)");
             newSubjectName = input.next();
         }
         System.out.println("The subject names in the student management system before sorting are: ");
@@ -43,7 +43,7 @@ public class StdMgtSystemBeforeRefactoring {
         newStudentName = input.next();
         while (!(newStudentName.equals("end"))) {
             studentList.add(new Student(newStudentName));
-            System.out.print("Enter a student name to be added to the student management system");
+            System.out.println("Enter a student name to be added to the student management system (enter 'end' to stop)");
             newStudentName = input.next();
         }
         System.out.println("The student names in the student management system before sorting are: ");
